@@ -32,8 +32,8 @@ We will hash the user's password using `bcryptjs`, and use JSON Web Tokens and t
 
 Your finished project must include all of the following requirements (further instructions are found inside each file):
 
-- [ ] An authentication workflow with functionality for account creation and login, implemented inside `api/auth/auth-router.js`.
-- [ ] Middleware used to restrict access to resources from non-authenticated requests, implemented inside `api/middleware/restricted.js`.
+- [x] An authentication workflow with functionality for account creation and login, implemented inside `api/auth/auth-router.js`.
+- [x] Middleware used to restrict access to resources from non-authenticated requests, implemented inside `api/middleware/restricted.js`.
 - [ ] A minimum of 2 tests per API endpoint, written inside `api/server.test.js`.
 
 **IMPORTANT Notes:**
@@ -62,6 +62,17 @@ Your finished project must include all of the following requirements (further in
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+
+With sessions, upon logging in the server sends a session id cookie to the client. the client must provide a valid cookie for all subsequent (restricted) actions. Best used for simple api's that don't have a lot of third party integration. JWT's return a token in the json response upon successfully logging in. the token is stored in local storage and then provided when accessing restricted endpoints. 
+
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+
+bcryptjs hashes the passwords to generate a "1-way" unreversable hash. the next time a user tries to login the password they give must "re-hash" to the exact same string.
+
 3. How are unit tests different from integration and end-to-end testing?
+
+Unit tests are much more isolated. they test a single function, action, etc. integration/end to end testing incorporates more. Multiple actions or functions would be involved. 
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
+
+write tests first, make the code fail. write the code, make the tests pass. refactor the code. 
