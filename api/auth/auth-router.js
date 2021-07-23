@@ -5,7 +5,8 @@ const { jwtSecret } = require("../secrets");
 
 const {
   validateReqBody,
-  checkUsernameUnique
+  checkUsernameUnique,
+  checkUsernameExists
 } = require('./auth-middleware')
 
 router.post('/register', validateReqBody, checkUsernameUnique, (req, res, next) => {
@@ -44,8 +45,8 @@ router.post('/register', validateReqBody, checkUsernameUnique, (req, res, next) 
   */
 });
 
-router.post('/login', validateReqBody, async(req, res, next) => {
-  const user = await Users.getUserByUsername({username: req.body.username})
+router.post('/login', validateReqBody, checkUsernameExists async(req, res, next) => {
+  const {user} = req.user
   
   if(bcrypt.compareSync(req.body.password, user.password)){
     const token = jwtSigner(user)

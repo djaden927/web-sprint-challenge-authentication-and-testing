@@ -27,7 +27,25 @@ const Users = require('./auth-model')
     }
   }
 
+  const checkUsernameExists = async (req, res, next) => {
+    try{
+        const user = await Users.getUserByUsername({username: req.body.username})
+        if(!user){
+            next({
+                status: 422,
+                message: "invalid credentials"
+            })
+        } else {
+            req.user = user
+            next()
+        }
+    }catch(err){
+        next(err)
+    }
+  }
+
   module.exports = {
       validateReqBody,
-      checkUsernameUnique
+      checkUsernameUnique,
+      checkUsernameExists
   }
