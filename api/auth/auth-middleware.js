@@ -49,3 +49,4 @@ const Users = require('./auth-model')
       checkUsernameUnique,
       checkUsernameExists
   }
+  
